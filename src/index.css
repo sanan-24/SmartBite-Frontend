@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-gray-50 text-neutral-900;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    /* Standardized human-readable size */
+  }
+}
+
+@layer components {
+
+  /* Buttons - Clean and Modern */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  .btn-outline {
+    @apply border border-gray-200 bg-white text-neutral-600 hover:border-primary hover:text-primary px-5 py-2 rounded-lg font-semibold text-sm transition-all active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  /* Cards - Natural, no heavy shadows */
+  .food-card {
+    @apply bg-white rounded-xl border border-gray-100 overflow-hidden hover:border-gray-200 transition-all;
+  }
+
+  /* Inputs - Minimal and clean */
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg bg-white border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary/10 transition-all outline-none text-sm font-normal text-neutral-900 placeholder:text-gray-300;
+  }
+
+  /* Status Badges */
+  .badge-status {
+    @apply text-[10px] font-bold uppercase px-2 py-0.5 rounded border leading-none inline-flex items-center;
+  }
+
+  .badge-pending {
+    @apply bg-orange-50 text-orange-600 border-orange-100;
+  }
+
+  .badge-preparing {
+    @apply bg-blue-50 text-blue-600 border-blue-100;
+  }
+
+  .badge-delivery {
+    @apply bg-red-50 text-primary border-red-100;
+  }
+
+  .badge-success {
+    @apply bg-green-50 text-accent border-green-100;
+  }
+
+  .badge-danger {
+    @apply bg-red-50 text-red-500 border-red-100;
+  }
+
+  /* Tables */
+  .table-wrapper {
+    @apply bg-white rounded-xl border border-gray-200 overflow-hidden;
+  }
+
+  .table-header {
+    @apply bg-gray-50 border-b border-gray-100;
+  }
+
+  .th {
+    @apply text-left py-3 px-4 text-[10px] font-extrabold uppercase tracking-widest text-gray-400;
+  }
+
+  .td {
+    @apply py-3 px-4 text-sm text-neutral-600 border-b border-gray-50;
+  }
+
+  .tr-hover {
+    @apply hover:bg-gray-50/50 transition-colors;
+  }
+}
+
+/* Custom Scrollbar for a cleaner feel */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d1d1d1;
+}
+
+/* Navigation - Grounded glass effect */
+.glass-nav {
+  @apply bg-white/80 backdrop-blur-md border-b border-gray-100;
+}
+
+/* Micro-animations */
+.animate-fade-up {
+  animation: fadeUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section paddings to match Pakistan's app density */
+.section-padding {
+  @apply max-w-6xl mx-auto px-4;
+}
