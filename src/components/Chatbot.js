@@ -17,7 +17,7 @@ const Chatbot = () => {
     setLoading(true);
     try {
       // Note: Assuming there's a /chat endpoint as per original file
-      const res = await axios.post('/chat', { message: userMsg.text });
+      const res = await axios.post('http://localhost:5000/api/chat', { message: userMsg.text });
       const botReply = res.data.reply || "I'm here to help you discover the best food on SmartBite!";
       setMessages((m) => [...m, { id: Date.now() + 1, from: 'bot', text: botReply }]);
     } catch (err) {
@@ -58,13 +58,13 @@ const Chatbot = () => {
           </div>
 
           <div className="p-4 h-80 overflow-y-auto space-y-4 custom-scrollbar bg-gray-50/50">
-            {messages.length === 0 && (
-              <div className="text-center py-6">
-                 <p className="text-[11px] text-gray-400 font-medium leading-relaxed px-6 italic">
-                   "Assalam-o-Alaikum! I can help you with menu items, order status, or tracking your delivery."
-                 </p>
-              </div>
-            )}
+             {messages.length === 0 && (
+               <div className="text-center py-6">
+                  <p className="text-[11px] text-gray-400 font-medium leading-relaxed px-6 italic">
+                    "Assalam-o-Alaikum! I'm your SmartBite Advisor. Ask me about trending foods, healthy options, or diet-friendly meals!"
+                  </p>
+               </div>
+             )}
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`px-4 py-2.5 rounded-2xl text-[13px] max-w-[85%] shadow-sm ${
