@@ -21,7 +21,10 @@ const AdminUsers = () => {
 
   const handleEdit = (user) => {
     setEditingUser(user);
-    setFormData({ isAdmin: !!user.isAdmin || user.role === 'admin' });
+    // setFormData({ isAdmin: !!user.isAdmin || user.role === 'admin' });
+    setFormData({
+      role: user.role || 'user'
+    });
   };
 
   const handleUpdate = async (e) => {
@@ -70,20 +73,31 @@ const AdminUsers = () => {
                 <tr key={u._id} className="tr-hover group">
                   <td className="td py-4">
                     <div className="flex items-center gap-3">
-                       <FontAwesomeIcon icon={faUserCircle} className="text-gray-200 text-2xl group-hover:text-primary transition-colors" />
-                       <span className="text-sm font-extrabold text-neutral-900 uppercase tracking-tight">{u.name}</span>
+                      <FontAwesomeIcon icon={faUserCircle} className="text-gray-200 text-2xl group-hover:text-primary transition-colors" />
+                      <span className="text-sm font-extrabold text-neutral-900 uppercase tracking-tight">{u.name}</span>
                     </div>
                   </td>
                   <td className="td text-[11px] font-medium text-gray-500">{u.email}</td>
                   <td className="td">
-                    <span className={`badge-status h-6 ${u.role === 'admin' || u.isAdmin ? 'badge-danger' : 'badge-success'}`}>
-                      {u.role === 'admin' || u.isAdmin ? 'Administrator' : 'Customer'}
+                    <span
+                      className={`badge-status h-6 ${u.role === 'admin' || u.isAdmin
+                        ? 'badge-danger'
+                        : u.role === 'rider'
+                          ? 'badge-warning'
+                          : 'badge-success'
+                        }`}
+                    >
+                      {u.role === 'admin' || u.isAdmin
+                        ? 'Administrator'
+                        : u.role === 'rider'
+                          ? 'Rider'
+                          : 'Customer'}
                     </span>
                   </td>
                   <td className="td text-right">
                     <div className="flex justify-end gap-3">
-                       <button onClick={() => handleEdit(u)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary hover:bg-red-50 rounded-lg transition-all" title="Edit Role"><FontAwesomeIcon icon={faEdit} className="text-[11px]" /></button>
-                       <button onClick={() => handleDelete(u._id)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete User"><FontAwesomeIcon icon={faTrash} className="text-[11px]" /></button>
+                      <button onClick={() => handleEdit(u)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary hover:bg-red-50 rounded-lg transition-all" title="Edit Role"><FontAwesomeIcon icon={faEdit} className="text-[11px]" /></button>
+                      <button onClick={() => handleDelete(u._id)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete User"><FontAwesomeIcon icon={faTrash} className="text-[11px]" /></button>
                     </div>
                   </td>
                 </tr>
@@ -96,10 +110,10 @@ const AdminUsers = () => {
           <div className="fixed inset-0 bg-neutral-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-scale-in">
               <div className="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
-                 <div>
-                   <h2 className="text-[11px] font-extrabold text-neutral-900 uppercase tracking-widest leading-none mb-1">Authorization Audit</h2>
-                   <p className="text-[9px] text-gray-400">User: {editingUser.name}</p>
-                 </div>
+                <div>
+                  <h2 className="text-[11px] font-extrabold text-neutral-900 uppercase tracking-widest leading-none mb-1">Authorization Audit</h2>
+                  <p className="text-[9px] text-gray-400">User: {editingUser.name}</p>
+                </div>
                 <button onClick={() => setEditingUser(null)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-white hover:text-red-500 transition-all border border-transparent hover:border-gray-100">
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
@@ -120,8 +134,8 @@ const AdminUsers = () => {
                   <FontAwesomeIcon icon={faShieldAlt} className="absolute top-4 right-4 text-primary opacity-10 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="flex gap-4 pt-2">
-                   <button type="submit" className="flex-1 btn-primary h-12 text-[11px] uppercase tracking-widest shadow-lg shadow-primary/10">Authorize Status</button>
-                   <button type="button" onClick={() => setEditingUser(null)} className="px-5 h-12 text-[10px] font-extrabold uppercase tracking-widest text-gray-400 bg-gray-50 border border-gray-100 rounded-xl hover:bg-gray-100 transition-all">Cancel</button>
+                  <button type="submit" className="flex-1 btn-primary h-12 text-[11px] uppercase tracking-widest shadow-lg shadow-primary/10">Authorize Status</button>
+                  <button type="button" onClick={() => setEditingUser(null)} className="px-5 h-12 text-[10px] font-extrabold uppercase tracking-widest text-gray-400 bg-gray-50 border border-gray-100 rounded-xl hover:bg-gray-100 transition-all">Cancel</button>
                 </div>
               </form>
             </div>
