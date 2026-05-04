@@ -3,17 +3,20 @@ import { Link } from 'react-router-dom';
 import { orderAPI, userAPI, foodAPI } from '../../utils/api';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faUsers, 
-  faUtensils, 
-  faShoppingBag, 
-  faHandHoldingUsd, 
+import {
+  faUsers,
+  faUtensils,
+  faShoppingBag,
+  faHandHoldingUsd,
   faArrowRight,
   faFolderTree,
   faBoxOpen,
   faUsersGear,
   faMotorcycle,
-  faBowlFood
+  faBowlFood,
+  faChartLine,
+  faCalendarCheck,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
 
 const AdminDashboard = () => {
@@ -22,6 +25,11 @@ const AdminDashboard = () => {
     totalUsers: 0,
     totalFoods: 0,
     totalRevenue: 0
+  });
+  const [reports, setReports] = useState({
+    weekly: { totalOrders: 0, totalRevenue: 0 },
+    monthly: { totalOrders: 0, totalRevenue: 0 },
+    yearly: { totalOrders: 0, totalRevenue: 0 }
   });
   const [recentOrders, setRecentOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,10 +40,11 @@ const AdminDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const [ordersRes, usersRes, foodsRes] = await Promise.all([
+      const [ordersRes, usersRes, foodsRes, reportsRes] = await Promise.all([
         orderAPI.getAll(),
         userAPI.getAll(),
-        foodAPI.getAll()
+        foodAPI.getAll(),
+        orderAPI.getReports()
       ]);
 
       const orders = ordersRes.data.orders;
@@ -48,6 +57,7 @@ const AdminDashboard = () => {
         totalRevenue: revenue
       });
 
+      setReports(reportsRes.data.data);
       setRecentOrders(orders.slice(0, 5));
     } catch (error) {
       toast.error('Failed to load dashboard data');
@@ -72,11 +82,12 @@ const AdminDashboard = () => {
   ];
 
   const quickLinks = [
-    { to: '/admin/foods',      label: 'Foods',      icon: faBowlFood,     color: 'text-primary' },
-    { to: '/admin/categories', label: 'Categories', icon: faFolderTree,   color: 'text-secondary' },
-    { to: '/admin/orders',     label: 'Orders',     icon: faBoxOpen,      color: 'text-accent' },
-    { to: '/admin/users',      label: 'Users',      icon: faUsersGear,    color: 'text-blue-600' },
-    { to: '/admin/riders',     label: 'Riders',     icon: faMotorcycle,  color: 'text-neutral-700' },
+    { to: '/admin/foods', label: 'Foods', icon: faBowlFood, color: 'text-primary' },
+    { to: '/admin/categories', label: 'Categories', icon: faFolderTree, color: 'text-secondary' },
+    { to: '/admin/orders', label: 'Orders', icon: faBoxOpen, color: 'text-accent' },
+    { to: '/admin/users', label: 'Users', icon: faUsersGear, color: 'text-blue-600' },
+    { to: '/admin/riders', label: 'Riders', icon: faMotorcycle, color: 'text-neutral-700' },
+    { to: '/admin/reports', label: 'Reports', icon: faChartLine, color: 'text-primary' },
   ];
 
   const getStatusClass = (status) => ({
@@ -111,8 +122,92 @@ const AdminDashboard = () => {
           ))}
         </div>
 
+        {/* Reports Section */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2 flex-1">
+              <h2 className="text-xs font-bold text-neutral-900 uppercase tracking-widest">Business Reports</h2>
+              <div className="h-[1px] flex-1 bg-gray-100"></div>
+            </div>
+            <Link to="/admin/reports" className="text-[10px] text-primary font-bold uppercase hover:underline flex items-center gap-2 tracking-widest ml-4">
+              View Detailed Reports <FontAwesomeIcon icon={faArrowRight} className="text-[8px]" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Weekly Report */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <FontAwesomeIcon icon={faChartLine} className="text-6xl -rotate-12" />
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                  <FontAwesomeIcon icon={faClock} className="text-sm" />
+                </div>
+                <h3 className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Weekly (7 Days)</h3>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-2xl font-extrabold text-neutral-900 font-outfit leading-none">{reports.weekly.totalOrders}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Orders Placed</p>
+                </div>
+                <div className="pt-4 border-t border-gray-50">
+                  <p className="text-xl font-bold text-primary font-outfit leading-none">Rs. {reports.weekly.totalRevenue.toFixed(0)}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Estimated Revenue</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Monthly Report */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <FontAwesomeIcon icon={faCalendarCheck} className="text-6xl -rotate-12" />
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                  <FontAwesomeIcon icon={faCalendarCheck} className="text-sm" />
+                </div>
+                <h3 className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Monthly (30 Days)</h3>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-2xl font-extrabold text-neutral-900 font-outfit leading-none">{reports.monthly.totalOrders}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Orders Placed</p>
+                </div>
+                <div className="pt-4 border-t border-gray-50">
+                  <p className="text-xl font-bold text-secondary font-outfit leading-none">Rs. {reports.monthly.totalRevenue.toFixed(0)}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Estimated Revenue</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Yearly Report */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <FontAwesomeIcon icon={faChartLine} className="text-6xl -rotate-12" />
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <FontAwesomeIcon icon={faChartLine} className="text-sm" />
+                </div>
+                <h3 className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Yearly (365 Days)</h3>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-2xl font-extrabold text-neutral-900 font-outfit leading-none">{reports.yearly.totalOrders}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Orders Placed</p>
+                </div>
+                <div className="pt-4 border-t border-gray-50">
+                  <p className="text-xl font-bold text-blue-600 font-outfit leading-none">Rs. {reports.yearly.totalRevenue.toFixed(0)}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Estimated Revenue</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* Recent Orders - Left Column */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
@@ -121,7 +216,7 @@ const AdminDashboard = () => {
                 Full View <FontAwesomeIcon icon={faArrowRight} className="text-[9px]" />
               </Link>
             </div>
-            
+
             <div className="table-wrapper animate-fade-up shadow-sm">
               <table className="w-full">
                 <thead className="table-header">
@@ -171,7 +266,7 @@ const AdminDashboard = () => {
                     className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-gray-50/50 border border-transparent hover:border-primary/20 hover:bg-white hover:shadow-xl hover:shadow-primary/5 transition-all group text-center"
                   >
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-white shadow-sm border border-gray-100 group-hover:scale-110 group-hover:bg-primary transition-all duration-300 ${link.color} group-hover:text-white`}>
-                       <FontAwesomeIcon icon={link.icon} className="text-xl" />
+                      <FontAwesomeIcon icon={link.icon} className="text-xl" />
                     </div>
                     <span className="text-[11px] font-extrabold text-gray-500 group-hover:text-neutral-900 transition-colors tracking-widest uppercase leading-none">{link.label}</span>
                   </Link>
@@ -180,13 +275,13 @@ const AdminDashboard = () => {
             </div>
 
             <div className="bg-neutral-900 rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
-               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
-               <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Server Health</p>
-               <p className="text-sm font-bold font-outfit">Stable & Active</p>
-               <div className="mt-6 flex items-center justify-between">
-                  <span className="text-[10px] text-gray-500 uppercase tracking-widest">Uptime: 99.9%</span>
-                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-               </div>
+              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
+              <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Server Health</p>
+              <p className="text-sm font-bold font-outfit">Stable & Active</p>
+              <div className="mt-6 flex items-center justify-between">
+                <span className="text-[10px] text-gray-500 uppercase tracking-widest">Uptime: 99.9%</span>
+                <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              </div>
             </div>
           </div>
         </div>

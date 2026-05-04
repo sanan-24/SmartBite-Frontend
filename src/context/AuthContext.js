@@ -4,6 +4,7 @@ import axios from 'axios';
 export const AuthContext = createContext();
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// const API_URL = 'https://smart-bite-backend.vercel.app/api';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -38,11 +39,11 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${API_URL}/auth/register`, userData);
       const { token, user } = response.data;
-      
+
       localStorage.setItem('token', token);
       setToken(token);
       setUser(user);
-      
+
       return { success: true };
     } catch (error) {
       return {
@@ -57,11 +58,11 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${API_URL}/auth/login`, credentials);
       const { token, user } = response.data;
-      
+
       localStorage.setItem('token', token);
       setToken(token);
       setUser(user);
-      
+
       return { success: true };
     } catch (error) {
       return {
