@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-const API_URL = 'https://smart-bite-backend.vercel.app/api'
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// const API_URL = 'https://smart-bite-backend.vercel.app/api'
 
 // Set base URL
 axios.defaults.baseURL = API_URL;
@@ -34,7 +34,9 @@ export const orderAPI = {
   cancel: (id) => axios.put(`/orders/${id}/cancel`),
   assignRider: (id, riderId) => axios.put(`/orders/${id}/assign-rider`, { riderId }),
   getRiderOrders: () => axios.get('/orders/rider/my-deliveries'),
-  updateDeliveryStatus: (id, status) => axios.put(`/orders/${id}/delivery-status`, { orderStatus: status })
+  updateDeliveryStatus: (id, status) => axios.put(`/orders/${id}/delivery-status`, { orderStatus: status }),
+  getReports: () => axios.get('/orders/reports'),
+  getStatement: (range) => axios.get(`/orders/statement?range=${range}`)
 };
 
 // Review APIs

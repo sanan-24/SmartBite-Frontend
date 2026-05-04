@@ -28,6 +28,7 @@ import AdminOrders from './pages/admin/AdminOrders';
 import AdminCategories from './pages/admin/AdminCategories';
 import AdminUsers from './pages/admin/AdminUsers';
 import AdminRiders from './pages/admin/AdminRiders';
+import AdminReports from './pages/admin/AdminReports';
 import RiderDashboard from './pages/RiderDashboard';
 
 const AppContent = () => {
@@ -36,7 +37,7 @@ const AppContent = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {!hideChrome && <Navbar />}
+      {!hideChrome && <div className="print:hidden"><Navbar /></div>}
       <main className="flex-grow">
         <Routes>
           {/* Public Routes */}
@@ -59,6 +60,7 @@ const AppContent = () => {
           <Route path="/admin/categories" element={<ProtectedRoute adminOnly><AdminCategories /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsers /></ProtectedRoute>} />
           <Route path="/admin/riders" element={<ProtectedRoute adminOnly><AdminRiders /></ProtectedRoute>} />
+          <Route path="/admin/reports" element={<ProtectedRoute adminOnly><AdminReports /></ProtectedRoute>} />
           <Route path="/admin/orders/:id" element={<ProtectedRoute adminOnly><OrderDetail /></ProtectedRoute>} />
           <Route path="/admin/orders" element={<ProtectedRoute adminOnly><AdminOrders /></ProtectedRoute>} />
 
@@ -66,8 +68,8 @@ const AppContent = () => {
           <Route path="/rider/dashboard" element={<ProtectedRoute riderOnly><RiderDashboard /></ProtectedRoute>} />
         </Routes>
       </main>
-      {!hideChrome && <Chatbot />}
-      {!hideChrome && <Footer />}
+      {!hideChrome && <div className="print:hidden"><Chatbot /></div>}
+      {!hideChrome && <div className="print:hidden"><Footer /></div>}
     </div>
   );
 };
