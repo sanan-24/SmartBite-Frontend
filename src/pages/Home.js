@@ -102,7 +102,7 @@ const Home = () => {
               </span>
 
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-neutral-900 leading-[1.15] font-outfit">
-                Lahore's Finest <br />
+                Multan's Finest <br />
                 <span className="text-primary">Fast Food.</span>
               </h1>
 
