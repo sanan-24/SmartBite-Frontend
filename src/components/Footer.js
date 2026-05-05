@@ -63,7 +63,7 @@ const Footer = () => {
             <ul className="space-y-3 text-xs text-gray-400">
               <li className="flex items-start gap-2">
                 <FontAwesomeIcon icon={faMapMarkerAlt} className="mt-0.5 text-primary" />
-                <span>Gulberg III, Lahore, Pakistan</span>
+                <span>Z Town, Multan, Pakistan</span>
               </li>
               <li className="flex items-center gap-2">
                 <FontAwesomeIcon icon={faPhone} className="text-primary" />
@@ -71,7 +71,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <FontAwesomeIcon icon={faEnvelope} className="text-primary" />
-                <span>support@smartbite.pk</span>
+                <span>smartbite86@gmail.com</span>
               </li>
             </ul>
           </div>
