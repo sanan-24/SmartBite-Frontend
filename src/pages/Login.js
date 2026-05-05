@@ -29,63 +29,63 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex bg-white overflow-hidden">
-      
+
       {/* Left Side: Visual/Design - Hidden on mobile */}
       <div className="hidden lg:flex lg:w-3/5 relative bg-neutral-900 overflow-hidden">
-         {/* Background Image with Overlay */}
-         <img 
-           src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=1200&q=80" 
-           alt="Fast Food Gourmet"
-           className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 hover:scale-100 transition-transform duration-[10s]"
-         />
-         <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900 via-transparent to-primary/20"></div>
-         
-         {/* branding overlay */}
-         <div className="relative z-10 w-full flex flex-col justify-between p-16">
-            <Link to="/" className="inline-flex items-center gap-2.5 group max-w-fit">
-              <div className="bg-primary p-2.5 rounded-xl shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform duration-300">
-                <FontAwesomeIcon icon={faBurger} className="text-white text-lg" />
-              </div>
-              <span className="text-2xl font-extrabold font-outfit text-white tracking-tight">
-                Smart<span className="text-primary">Bite</span>
-              </span>
-            </Link>
+        {/* Background Image with Overlay */}
+        <img
+          src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=1200&q=80"
+          alt="Fast Food Gourmet"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 hover:scale-100 transition-transform duration-[10s]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900 via-transparent to-primary/20"></div>
 
-            <div className="max-w-md">
-               <h2 className="text-5xl font-extrabold text-white leading-tight font-outfit mb-4">
-                 Savor the taste of <span className="text-primary italic">excellence.</span>
-               </h2>
-               <p className="text-neutral-300 text-lg leading-relaxed">
-                 Fast, reliable delivery from Pakistan's most loved kitchens straight to your doorstep.
-               </p>
-               <div className="flex gap-8 mt-12">
-                  <div className="text-white">
-                     <p className="text-2xl font-bold font-outfit leading-none">30 min</p>
-                     <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">Avg. Delivery</p>
-                  </div>
-                  <div className="text-white">
-                     <p className="text-2xl font-bold font-outfit leading-none">150+</p>
-                     <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">Restaurants</p>
-                  </div>
-               </div>
+        {/* branding overlay */}
+        <div className="relative z-10 w-full flex flex-col justify-between p-16">
+          <Link to="/" className="inline-flex items-center gap-2.5 group max-w-fit">
+            <div className="bg-primary p-2.5 rounded-xl shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform duration-300">
+              <FontAwesomeIcon icon={faBurger} className="text-white text-lg" />
             </div>
+            <span className="text-2xl font-extrabold font-outfit text-white tracking-tight">
+              Smart<span className="text-primary">Bite</span>
+            </span>
+          </Link>
 
-            <p className="text-neutral-500 text-xs uppercase tracking-widest">© 2026 SmartBite Pakistan — Handcrafted Excellence</p>
-         </div>
+          <div className="max-w-md">
+            <h2 className="text-5xl font-extrabold text-white leading-tight font-outfit mb-4">
+              Savor the taste of <span className="text-primary italic">excellence.</span>
+            </h2>
+            <p className="text-neutral-300 text-lg leading-relaxed">
+              Fast, reliable delivery from Pakistan's most loved kitchens straight to your doorstep.
+            </p>
+            <div className="flex gap-8 mt-12">
+              <div className="text-white">
+                <p className="text-2xl font-bold font-outfit leading-none">30 min</p>
+                <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">Avg. Delivery</p>
+              </div>
+              <div className="text-white">
+                <p className="text-2xl font-bold font-outfit leading-none">150+</p>
+                <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">Restaurants</p>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-neutral-500 text-xs uppercase tracking-widest">© 2026 SmartBite Pakistan — Handcrafted Excellence</p>
+        </div>
       </div>
 
       {/* Right Side: Form */}
       <div className="w-full lg:w-2/5 flex flex-col items-center justify-center p-8 md:p-12 lg:p-20 bg-white relative">
-        
+
         {/* Mobile Header / Back Button */}
         <div className="absolute top-8 left-8 lg:left-20">
-           <Link to="/" className="text-gray-400 hover:text-primary transition-colors flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-              <FontAwesomeIcon icon={faArrowLeft} /> Back
-           </Link>
+          <Link to="/" className="text-gray-400 hover:text-primary transition-colors flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+            <FontAwesomeIcon icon={faArrowLeft} /> Back
+          </Link>
         </div>
 
         <div className="w-full max-w-sm">
-          
+
           <div className="mb-10 text-center lg:text-left">
             <h1 className="text-3xl font-extrabold text-neutral-900 font-outfit tracking-tight mb-2">Welcome Back</h1>
             <p className="text-[13px] text-gray-400 font-medium">Log in to manage your orders & preferences</p>
