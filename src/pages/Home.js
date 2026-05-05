@@ -3,27 +3,27 @@ import { Link } from 'react-router-dom';
 import { foodAPI, categoryAPI } from '../utils/api';
 import FoodCard from '../components/FoodCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faUtensils, 
-  faShippingFast, 
-  faCreditCard, 
+import {
+  faUtensils,
+  faShippingFast,
+  faCreditCard,
   faStar,
-  faArrowRight, 
-  faFire, 
+  faArrowRight,
+  faFire,
   faSearch,
   faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
 const Home = () => {
-  const [featuredFoods,  setFeaturedFoods]  = useState([]);
-  const [categories,     setCategories]     = useState([]);
-  const [pizzaFoods,     setPizzaFoods]     = useState([]);
-  const [burgerFoods,    setBurgerFoods]    = useState([]);
-  const [shawarmaFoods,  setShawarmaFoods]  = useState([]);
-  const [friesFoods,     setFriesFoods]     = useState([]);
-  const [otherFoods,     setOtherFoods]     = useState([]);
-  const [loading,        setLoading]        = useState(true);
+  const [featuredFoods, setFeaturedFoods] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [pizzaFoods, setPizzaFoods] = useState([]);
+  const [burgerFoods, setBurgerFoods] = useState([]);
+  const [shawarmaFoods, setShawarmaFoods] = useState([]);
+  const [friesFoods, setFriesFoods] = useState([]);
+  const [otherFoods, setOtherFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => { fetchData(); }, []);
 
@@ -36,12 +36,12 @@ const Home = () => {
       setCategories(catsRes.data.categories);
 
       const match = (f, kw) => f.category?.name?.toLowerCase().includes(kw);
-      setPizzaFoods(   all.filter(f => match(f, 'pizza')).slice(0, 6));
-      setBurgerFoods(  all.filter(f => match(f, 'burger')).slice(0, 6));
+      setPizzaFoods(all.filter(f => match(f, 'pizza')).slice(0, 6));
+      setBurgerFoods(all.filter(f => match(f, 'burger')).slice(0, 6));
       setShawarmaFoods(all.filter(f => match(f, 'shawarma')).slice(0, 6));
-      setFriesFoods(   all.filter(f => match(f, 'fries')).slice(0, 6));
-      setOtherFoods(   all.filter(f =>
-        !match(f,'pizza') && !match(f,'burger') && !match(f,'shawarma') && !match(f,'fries')
+      setFriesFoods(all.filter(f => match(f, 'fries')).slice(0, 6));
+      setOtherFoods(all.filter(f =>
+        !match(f, 'pizza') && !match(f, 'burger') && !match(f, 'shawarma') && !match(f, 'fries')
       ).slice(0, 6));
     } catch {
       toast.error('Failed to load data');
@@ -107,7 +107,7 @@ const Home = () => {
               </h1>
 
               <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
-                Experience the ultimate crunch and flavor of our gourmet Burgers, loaded Pizzas, and crispy Shawarmas. 
+                Experience the ultimate crunch and flavor of our gourmet Burgers, loaded Pizzas, and crispy Shawarmas.
                 Order from <span className="font-bold text-neutral-700">SmartBite</span> and enjoy hot, fresh meals in 30 minutes.
               </p>
 
@@ -197,10 +197,10 @@ const Home = () => {
       </section>
 
       {/* Specialty Sections */}
-      {pizzaFoods.length    > 0 && <FoodSection title="Classic Pizza"    icon={faUtensils} foods={pizzaFoods}    categoryName="pizza"    alt={true} />}
-      {burgerFoods.length   > 0 && <FoodSection title="Juicy Burgers"   icon={faUtensils} foods={burgerFoods}   categoryName="burger"   alt={false} />}
-      {shawarmaFoods.length > 0 && <FoodSection title="Spicy Shawarma" icon={faFire}     foods={shawarmaFoods} categoryName="shawarma" alt={true}  />}
-      
+      {pizzaFoods.length > 0 && <FoodSection title="Classic Pizza" icon={faUtensils} foods={pizzaFoods} categoryName="pizza" alt={true} />}
+      {burgerFoods.length > 0 && <FoodSection title="Juicy Burgers" icon={faUtensils} foods={burgerFoods} categoryName="burger" alt={false} />}
+      {shawarmaFoods.length > 0 && <FoodSection title="Spicy Shawarma" icon={faFire} foods={shawarmaFoods} categoryName="shawarma" alt={true} />}
+
       {/* ─────────────────────────────────────
           BOTTOM CTA
       ───────────────────────────────────── */}
@@ -208,7 +208,7 @@ const Home = () => {
         <div className="max-w-xl mx-auto px-4">
           <h2 className="text-2xl font-bold font-outfit mb-3">Order Your Favorite Dish Today</h2>
           <p className="text-red-100 text-sm mb-8 leading-relaxed">
-            Freshly prepared food from Pakistan's best kitchens. 
+            Freshly prepared food from Pakistan's best kitchens.
             Fast delivery, secure payments, and unbeatable taste.
           </p>
           <div className="flex justify-center">
